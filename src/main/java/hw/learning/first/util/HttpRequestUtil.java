@@ -14,13 +14,13 @@ public class HttpRequestUtil {
         MediaType mediaType
                 = MediaType.get("application/json; charset=utf-8");
         OkHttpClient client = new OkHttpClient();
-        RequestBody body = RequestBody.create(mediaType, JSONObject.toJSONString(accessTokenDTO));
+        RequestBody body = RequestBody.create(JSONObject.toJSONString(accessTokenDTO), mediaType);
         Request request = new Request.Builder()
                 .url(url)
                 .post(body)
                 .build();
         try (Response response = client.newCall(request).execute()) {
-            String string=response.body().string();
+            String string = response.body().string();
             return string;
         } catch (IOException e) {
             e.printStackTrace();
@@ -35,9 +35,8 @@ public class HttpRequestUtil {
                 .build();
 
         try (Response response = client.newCall(request).execute()) {
-            System.out.println(response.body().string());
             return response.body().string();
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;

@@ -20,6 +20,7 @@ public class GitHubProvider {
 
     public GitHubUser getGitHubUser(String accessToken) {
         String result = httpRequestUtil.getToHttpServer("https://api.github.com/user?" + accessToken);
+        System.out.println(result);
         GitHubUser gitHubUser = JSON.parseObject(result, GitHubUser.class);
         return gitHubUser;
     }
